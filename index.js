@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const rfidRoutes = require('./routes/rfid');
 const inventoryRoutes = require("./routes/inventory");
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 let latestRFID = null;
@@ -27,7 +28,7 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-
+  app.use(cors());
 
   app.get('/api/latest-rfid', (req, res) => {
     if (latestRFID && lastUpdateTime) {
