@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const rfidRoutes = require('./routes/rfid');
 const inventoryRoutes = require("./routes/inventory");
+const purchaseRoutes = require("./routes/purchase");
 const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,7 @@ mongoose
 app.use("/api/user", userRoutes);
 app.use("/api/inventory", inventoryRoutes);
 app.use('/api', rfidRoutes);
+app.use("/api/purchase", purchaseRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
