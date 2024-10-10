@@ -71,12 +71,7 @@ exports.addBalance = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 }
-//Purchase
-exports.getRFID = async (req, res) => {
-    const { RFID } = req.params;
-    return res.status(200).json({ RFID });
 
-};
 exports.purchase = async (req, res) => {
     const session = await mongoose.startSession();
     session.startTransaction();

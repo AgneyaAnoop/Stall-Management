@@ -1,28 +1,31 @@
-const User = require('../models/User');
+const RfidModel = require('../models/RfidModel');
 
-const rfidController = {
-    handleRFID: async (req, res) => {
-      const { rfid } = req.body;
+exports.postRfid = (req, res) => {
+  const { rfidCode } = req.body;
   
-      if (!rfid) {
-        return res.status(400).json({ error: "RFID is required" });
-      }
-  
-      try {
-        const user = await User.findOne({ RFID: rfid });
-        if (!user) {
-          return res.status(404).json({ error: "User not found" });
-        }
-  
-        // Update the latest RFID
-        req.setLatestRFID(rfid);
-  
-        res.status(200).json({ message: "RFID received", user: user });
-      } catch (error) {
-        console.error("Error handling RFID:", error);
-        res.status(500).json({ error: "Internal server error" });
-      }
-    }
-  };
+  if (!rfidCode) {
+    return res.status(400).json({ error: 'RFID code is required' });
+  }
 
-module.exports = rfidController;
+  RfidModel.setRfid(rfidCode);
+  console.log('Received RFID:', rfidCode);
+  res.status(200).json({ message: 'RFID code received successfully' });
+};
+
+exports.getLatestRfid = (req, res) => {
+  const latestRfid = RfidModel.getLatestRfid();
+  if (latestRfid) {
+    res.json({ rfidCode: latestRfid });
+  } else {
+    res.status(404).json({ error: 'No RFID code available' });
+  }
+};
+
+exports.deleteRfid = (req, res) => {
+  const deletedRfid = RfidModel.deleteRfid();
+  if (deletedRfid) {
+    res.json({ message: 'RFID code deleted successfully', deletedRfid });
+  } else {
+    res.status(404).json({ error: 'No RFID code available to delete' });
+  }
+};

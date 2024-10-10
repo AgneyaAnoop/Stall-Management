@@ -7,9 +7,6 @@ const userController = require('../controllers/user');
 //Get All Users
 router.get('/', userController.getAllUsers);
 //Get User by RFID
-
-router.get('/RFID/', userController.getRFID);
-
 router.get('/getUser/:RFID', userController.getUserByRFID);
 //Create User
 router.post('/createUser', userController.createUser);
