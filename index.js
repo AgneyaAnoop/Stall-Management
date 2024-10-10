@@ -26,8 +26,6 @@ mongoose
   });
 
 
-
-
 // Routes
 app.use("/api/user", userRoutes);
 app.use("/api/inventory", inventoryRoutes);

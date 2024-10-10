@@ -1,7 +1,7 @@
 const RfidModel = require('../models/RfidModel');
 
 exports.postRfid = (req, res) => {
-  const { rfidCode } = req.body;
+  const { rfidCode } = req.params;
   
   if (!rfidCode) {
     return res.status(400).json({ error: 'RFID code is required' });
